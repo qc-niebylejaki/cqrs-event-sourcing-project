@@ -1,4 +1,4 @@
-package org.cqrs.account.command.commands;
+package org.cqrs.account.command.api.commands;
 
 import lombok.Data;
 import org.cqrs.account.common.dto.AccountType;
