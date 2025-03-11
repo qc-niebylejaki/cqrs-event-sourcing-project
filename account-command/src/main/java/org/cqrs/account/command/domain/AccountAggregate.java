@@ -1,5 +1,6 @@
 package org.cqrs.account.command.domain;
 
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.cqrs.account.command.api.commands.OpenAccountCommand;
 import org.cqrs.account.common.events.AccountClosedEvent;
@@ -10,6 +11,7 @@ import org.cqrs.core.domain.AggregateRoot;
 
 import java.time.LocalDate;
 
+@Getter
 @NoArgsConstructor
 public class AccountAggregate extends AggregateRoot {
     private Boolean active;
