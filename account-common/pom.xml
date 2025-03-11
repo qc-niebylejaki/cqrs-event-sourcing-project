@@ -10,7 +10,7 @@
     </parent>
     <groupId>org.cqrs</groupId>
     <artifactId>account-common</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>1.0.0</version>
 
     <dependencies>
         <dependency>
@@ -28,7 +28,7 @@
         <dependency>
             <groupId>org.cqrs</groupId>
             <artifactId>cqrs-core</artifactId>
-            <version>0.0.1-SNAPSHOT</version>
+            <version>1.0.0</version>
         </dependency>
 
         <!-- TEST -->
