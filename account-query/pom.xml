@@ -37,6 +37,18 @@
             <optional>true</optional>
         </dependency>
 
+        <!-- Other modules -->
+        <dependency>
+            <groupId>org.cqrs</groupId>
+            <artifactId>cqrs-core</artifactId>
+            <version>1.0.0</version>
+        </dependency>
+        <dependency>
+            <groupId>org.cqrs</groupId>
+            <artifactId>account-common</artifactId>
+            <version>1.0.0</version>
+        </dependency>
+
         <!-- TEST -->
         <dependency>
             <groupId>org.springframework.boot</groupId>

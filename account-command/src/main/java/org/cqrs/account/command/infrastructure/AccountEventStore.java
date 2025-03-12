@@ -8,6 +8,7 @@ import org.cqrs.core.events.EventModel;
 import org.cqrs.core.exceptions.AggregateNotFoundException;
 import org.cqrs.core.exceptions.ConcurrencyException;
 import org.cqrs.core.infrastructure.EventStore;
+import org.cqrs.core.producers.EventProducer;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -19,6 +20,8 @@ import java.util.stream.Collectors;
 public class AccountEventStore implements EventStore {
 
     private final EventStoreRepository eventStoreRepository;
+    private final EventProducer eventProducer;
+    private final AccountEventProducer accountEventProducer;
 
     @Override
     public void saveEvents(String aggregateId, Iterable<BaseEvent> events, int expectedVersion) {
@@ -39,8 +42,8 @@ public class AccountEventStore implements EventStore {
                     .eventData(event)
                     .build();
             var persistedEvent = eventStoreRepository.save(eventModel);
-            if (persistedEvent != null) {
-                // TODO: produce event to Kafka
+            if (!persistedEvent.getId().isEmpty()) {
+                accountEventProducer.produce(event.getClass().getSimpleName(), event);
             }
         }
     }
