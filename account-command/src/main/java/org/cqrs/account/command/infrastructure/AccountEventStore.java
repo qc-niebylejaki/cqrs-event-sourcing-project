@@ -9,6 +9,7 @@ import org.cqrs.core.exceptions.AggregateNotFoundException;
 import org.cqrs.core.exceptions.ConcurrencyException;
 import org.cqrs.core.infrastructure.EventStore;
 import org.cqrs.core.producers.EventProducer;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -19,6 +20,9 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class AccountEventStore implements EventStore {
 
+    @Value("${spring.kafka.topic}")
+    private String topic;
+    
     private final EventStoreRepository eventStoreRepository;
     private final EventProducer eventProducer;
     private final AccountEventProducer accountEventProducer;
@@ -43,7 +47,7 @@ public class AccountEventStore implements EventStore {
                     .build();
             var persistedEvent = eventStoreRepository.save(eventModel);
             if (!persistedEvent.getId().isEmpty()) {
-                accountEventProducer.produce(event.getClass().getSimpleName(), event);
+                accountEventProducer.produce(topic, event);
             }
         }
     }
@@ -57,5 +61,16 @@ public class AccountEventStore implements EventStore {
         return eventStream.stream()
                 .map(EventModel::getEventData)
                 .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<String> getAggregateIds() {
+        var eventStream = eventStoreRepository.findAll();
+        if (eventStream == null || eventStream.isEmpty()) {
+            throw new IllegalStateException("Could not retrieve events from the event store!");
+        }
+        return eventStream.stream()
+                .map(EventModel::getAggregateIdentifier)
+                .toList();
     }
 }

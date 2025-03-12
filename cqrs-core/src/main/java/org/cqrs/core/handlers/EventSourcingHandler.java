@@ -7,4 +7,6 @@ public interface EventSourcingHandler<T extends AggregateRoot> {
     void save(AggregateRoot aggregate);
 
     T getById(String aggregateId);
+
+    void republishEvents();
 }

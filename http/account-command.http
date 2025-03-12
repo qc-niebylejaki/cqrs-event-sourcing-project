@@ -1,4 +1,4 @@
-# Open account
+### Open account
 POST http://localhost:9080/api/v1/open-bank-account
 Content-Type: application/json
 
@@ -8,9 +8,7 @@ Content-Type: application/json
   "openingBalance": 0
 }
 
-###
-
-# Deposit funds
+### Deposit funds
 PUT http://localhost:9080/api/v1/deposit-funds/c7430ce0-0bc2-4fca-a5f3-1680f42e8dc9
 Content-Type: application/json
 
@@ -18,9 +16,7 @@ Content-Type: application/json
   "amount": 130.00
 }
 
-###
-
-# Withdraw funds
+### Withdraw funds
 PUT http://localhost:9080/api/v1/withdraw-funds/c7430ce0-0bc2-4fca-a5f3-1680f42e8dc9
 Content-Type: application/json
 
@@ -28,9 +24,10 @@ Content-Type: application/json
   "amount": 15.00
 }
 
-###
-
-# Delete account
+### Delete account
 DELETE http://localhost:9080/api/v1/close-account/c7430ce0-0bc2-4fca-a5f3-1680f42e8dc9
 Content-Type: application/json
 
+### Restore read DB
+DELETE http://localhost:9080/api/v1/restore-read-db
+Content-Type: application/json
