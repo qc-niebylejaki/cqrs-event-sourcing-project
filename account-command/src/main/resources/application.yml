@@ -1,12 +1,12 @@
 server:
-  port: 5000
+  port: 9080
 
 spring:
   data:
     mongodb:
       host: localhost
       port: 27017
-      database: bank-account
+      database: bankAccount
   kafka:
     producer:
       bootstrap-servers: localhost:9092
