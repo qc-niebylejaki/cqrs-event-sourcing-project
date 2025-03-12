@@ -1,0 +1,11 @@
+### Get all accounts
+GET http://localhost:9081/api/v1/bank-account-lookup/
+
+### Get by account holder
+GET http://localhost:9081/api/v1/bank-account-lookup/byHolder/{{accountHolder}}
+
+### Get by id
+GET http://localhost:9081/api/v1/bank-account-lookup/byId/{{id}}
+
+### Get with balance
+GET http://localhost:9081/api/v1/bank-account-lookup/withBalance/{{equalityType}}/{{balance}}
