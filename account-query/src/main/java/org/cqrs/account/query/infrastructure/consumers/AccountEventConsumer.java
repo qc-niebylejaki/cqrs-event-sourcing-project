@@ -1,6 +1,7 @@
 package org.cqrs.account.query.infrastructure.consumers;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.cqrs.account.common.events.AccountClosedEvent;
 import org.cqrs.account.common.events.AccountOpenedEvent;
 import org.cqrs.account.common.events.FundsDepositEvent;
@@ -12,6 +13,7 @@ import org.springframework.stereotype.Service;
 
 @Service
 @RequiredArgsConstructor
+@Slf4j
 public class AccountEventConsumer implements EventConsumer {
 
     private final EventHandler eventHandler;
@@ -19,20 +21,23 @@ public class AccountEventConsumer implements EventConsumer {
     @Override
     @KafkaListener(topics = "AccountOpenedEvent", groupId = "${spring.kafka.consumer.group-id}")
     public void consume(AccountOpenedEvent event, Acknowledgment ack) {
+        log.info("Received event {}", event);
         eventHandler.on(event);
         ack.acknowledge();
     }
 
     @Override
-    @KafkaListener(topics = "FundsDepositedEvent", groupId = "${spring.kafka.consumer.group-id}")
+    @KafkaListener(topics = "FundsDepositEvent", groupId = "${spring.kafka.consumer.group-id}")
     public void consume(FundsDepositEvent event, Acknowledgment ack) {
+        log.info("Received event {}", event);
         eventHandler.on(event);
         ack.acknowledge();
     }
 
     @Override
-    @KafkaListener(topics = "FundsWithdrawnEvent", groupId = "${spring.kafka.consumer.group-id}")
+    @KafkaListener(topics = "FundsWithdrawEvent", groupId = "${spring.kafka.consumer.group-id}")
     public void consume(FundsWithdrawEvent event, Acknowledgment ack) {
+        log.info("Received event {}", event);
         eventHandler.on(event);
         ack.acknowledge();
     }
@@ -40,6 +45,7 @@ public class AccountEventConsumer implements EventConsumer {
     @Override
     @KafkaListener(topics = "AccountClosedEvent", groupId = "${spring.kafka.consumer.group-id}")
     public void consume(AccountClosedEvent event, Acknowledgment ack) {
+        log.info("Received event {}", event);
         eventHandler.on(event);
         ack.acknowledge();
     }
